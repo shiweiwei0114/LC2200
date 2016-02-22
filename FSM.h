@@ -24,24 +24,13 @@ enum micro_state {
 	addi1, addi2, addi3,
 	lw1, lw2, lw3,
 	sw1, sw2, sw3, sw4,
-	jump1, jump2, jump3,
+	jump1, jump2,
 	halt
 
 };
-typedef struct macro_state State;
 
-char ROM = {
-
-
-
-
-
-
-
-};
 
 struct FSM_struct {
-	State macro_state;
 	int DrPC, DrALU, DrREG, DrMem, DrOFF;
 	int LdPc, LdA, LdB, LdMAR, LdIR, LdZ;
 	int WrMem;
