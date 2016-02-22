@@ -14,9 +14,6 @@
 struct memory {
 	int memory[CAPACITY][WORD_SIZE];
 
-	int DrMem;
-	int MemRead;
-	int MemWrite;
 };
 
 typedef struct memory Memory;
