@@ -12,10 +12,12 @@ int main(void) {
 	//char option;
 	char    *buffer;
 	long    numbytes;
-	
-	printf("Enter the file name:\n");
-	scanf("%s", fileName);
-	FILE *inputFile = fopen(fileName, "r");
+	FILE *inputFile = NULL;
+	do {
+		printf("Enter the file name:\n");
+		scanf("%s", fileName);
+		inputFile = fopen(fileName, "r");
+	} while (inputFile == NULL);
 	
 	/* Get the number of bytes */
 	fseek(inputFile, 0L, SEEK_END);
@@ -36,6 +38,12 @@ int main(void) {
 	/* confirm we have read the file by
 	outputing it to the console */
 	printf("\n%s", buffer);
+
+
+
+
+
+
 
 	/* free the memory we used for the buffer */
 	free(buffer);
