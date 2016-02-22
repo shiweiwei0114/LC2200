@@ -3,7 +3,10 @@
 #include <string.h>             /* strtok() */
 #include <assert.h>
 
-
+#include "Assembler.h"
+#include "ALU.h"
+#include "Memory.h"
+#include "Registers.h"
 
 int main(void) {
 
@@ -33,7 +36,9 @@ int main(void) {
 
 	/* copy all the text into the buffer */
 	fread(buffer, sizeof(char), numbytes, inputFile);
-	fclose(inputFile);
+	if (fclose(inputFile) == 0) {
+		printf("File was closed successfully\n");
+	}
 
 	/* confirm we have read the file by
 	outputing it to the console */
@@ -41,13 +46,8 @@ int main(void) {
 
 
 
-
-
-
-
 	/* free the memory we used for the buffer */
 	free(buffer);
-	
 	/**
 	FILE *fp, *fp1;
 	fp = fopen(fileName, "r");

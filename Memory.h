@@ -9,10 +9,11 @@
 #define MEMORY_H_
 
 #define CAPACITY 10000
-#define WORD_SIZE 16
+#define WORD_SIZE 32
 
 struct memory {
-	int[CAPACITY][WORD_SIZE];
+	int memory[CAPACITY][WORD_SIZE];
+
 	int DrMem;
 	int MemRead;
 	int MemWrite;
