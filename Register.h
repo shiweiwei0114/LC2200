@@ -19,7 +19,7 @@ typedef struct Registers {
 	char $sp[32];
 	char $fp[32];
 	char $ra[32];
-} 
+};
 
 typedef struct Registers Reg;
 

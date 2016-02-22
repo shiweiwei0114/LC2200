@@ -7,7 +7,9 @@ struct instruction {
 	bool origExsit;
 	char machineLine[100][34];
 	int endIndex;
-} typedef struct instruction Instruction;
+};
+
+typedef struct instruction Instruction;
 
 int AssemblerBinToDec(char *binNum);
 

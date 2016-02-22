@@ -6,15 +6,14 @@
 
 
 int main(void) {
-	
-	
-	
-    char fileName[50];
+
+	setvbuf(stdout, NULL, _IONBF, 0);
+    char fileName[50] = {0};
 	//char option;
 	char    *buffer;
 	long    numbytes;
 	
-	printf("Enter the file name: ");
+	printf("Enter the file name:\n");
 	scanf("%s", fileName);
 	FILE *inputFile = fopen(fileName, "r");
 	
