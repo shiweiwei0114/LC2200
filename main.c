@@ -7,6 +7,7 @@
 #include "ALU.h"
 #include "Memory.h"
 #include "Registers.h"
+#include "FSM.h"
 
 int main(void) {
 
@@ -44,6 +45,7 @@ int main(void) {
 	outputing it to the console */
 	printf("\n%s", buffer);
 
+	FSM * stateMachine = malloc(sizeof(FSM));
 
 
 	/* free the memory we used for the buffer */

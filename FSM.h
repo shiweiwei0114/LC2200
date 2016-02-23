@@ -17,6 +17,9 @@ enum macro_state {
 	DECODE,
 	EXECUTE
 };
+
+typedef enum macro_state maState;
+
 enum micro_state {
 	ifect1, ifetch2, ifetch3,
 	add1, add2, add3,
@@ -31,14 +34,13 @@ enum micro_state {
 
 
 struct FSM_struct {
-	int DrPC, DrALU, DrREG, DrMem, DrOFF;
-	int LdPc, LdA, LdB, LdMAR, LdIR, LdZ;
-	int WrMem;
-	int WrREG;
-	int func;
-	int regno;
+	maState maState;
+
 };
 
 typedef struct FSM_struct FSM;
+
+FSM * setState(FSM *, maState);
+maState getState(FSM *);
 
 #endif /* FSM_H_ */
