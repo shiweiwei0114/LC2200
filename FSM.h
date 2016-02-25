@@ -8,6 +8,7 @@
 #ifndef FSM_H_
 #define FSM_H_
 
+
 #include "ALU.h"
 #include "Memory.h"
 #include "Registers.h"
@@ -34,13 +35,21 @@ enum micro_state {
 
 
 struct FSM_struct {
+	int PC;
 	maState maState;
-
+	ALU alu;
+	Memory memory;
+	Reg registers;
 };
 
 typedef struct FSM_struct FSM;
 
 FSM * setState(FSM *, maState);
 maState getState(FSM *);
+
+
+
+
+
 
 #endif /* FSM_H_ */

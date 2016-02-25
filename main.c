@@ -43,9 +43,13 @@ int main(void) {
 
 	/* confirm we have read the file by
 	outputing it to the console */
+	printf("File is read as:\n");
 	printf("\n%s", buffer);
 
 	FSM * stateMachine = malloc(sizeof(FSM));
+	if (stateMachine == NULL) {
+		printf("State machine creation failed.\n");
+	}
 
 
 	/* free the memory we used for the buffer */
