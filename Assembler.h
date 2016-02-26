@@ -42,9 +42,9 @@ Assembler *Assembler_constructor(void);
 
 int AssemblerBinToDec(char *binNum);
 
-Assembler * AssemblerTranslate(char* input[100], int LineNumber);
+//Assembler * Assembler_translate(char* input[100], int LineNumber);
 
-Memory *Assembler_Translate(Memory *, char *);
+Assembler *Assembler_translate(Assembler *, char *);
 
 void AssemblerReset();
 

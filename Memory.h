@@ -18,6 +18,6 @@ struct memory {
 
 typedef struct memory Memory;
 
-Memory  *Memory_constructor(void);
+Memory * Memory_constructor();
 
 #endif /* MEMORY_H_ */

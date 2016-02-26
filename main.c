@@ -54,6 +54,9 @@ int main(void) {
 	Memory *mem = Memory_constructor();
 	Assembler *as = Assembler_constructor();
 
+	as->memory = mem;
+	as = Assembler_translate(as,buffer);
+
 
 
 	/* free the memory we used for the buffer */
