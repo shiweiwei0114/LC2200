@@ -2,7 +2,7 @@
 #include <string.h>
 #include "Registers.h"
 
-void RegisterInit(Reg *regs) {
+void Register_initialize(Reg *regs) {
 	char *zeros = "00000000000000000000000000000000";
 	memcpy(regs->$zero, zeros, 32);
 	memcpy(regs->$a0, zeros, 32);
@@ -15,7 +15,8 @@ void RegisterInit(Reg *regs) {
 	memcpy(regs->$s1, zeros, 32);
 	memcpy(regs->$s2, zeros, 32);
 }
-char* RegisterGetvalue(Reg *regs, char* bit) {
+char* Register_getValue(Reg *regs, char* bit) {
+
 	if (strcmp(bit, "0000") == 0) { // Reg $a0
 		return regs->$zero;
 	} else if (strcmp(bit, "0011") == 0) { // Reg $a0
@@ -41,7 +42,7 @@ char* RegisterGetvalue(Reg *regs, char* bit) {
 		return NULL;
 	}
 }
-void RegisterStore(Reg *regs, char *bit, char *data) {
+void Register_store(Reg *regs, char *bit, char *data) {
 	if (strcmp(bit, "0011") == 0) { // Reg $a0
 		memcpy(regs->$a0, data, 32);
 	} else if (strcmp(bit, "0100") == 0) { // Reg $a1

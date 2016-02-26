@@ -4,6 +4,12 @@
 
 #include "ALU.h"
 
+ALU *ALU_constructor() {
+	ALU *alu = malloc(sizeof(ALU));
+	alu->A = calloc(32, sizeof(char));
+	alu->B = calloc(32, sizeof(char));
+	return alu;
+}
 char * Nand(char *a, char *b) {
 	int i;
 	char *result = malloc(1000);

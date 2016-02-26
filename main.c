@@ -37,15 +37,23 @@ int main(void) {
 
 	/* copy all the text into the buffer */
 	fread(buffer, sizeof(char), numbytes, inputFile);
-	if (fclose(inputFile) == 0) {
-		printf("File was closed successfully\n");
-	}
+//	if (fclose(inputFile) == 0) {
+//		printf("File was closed successfully\n");
+//	}
 
 	/* confirm we have read the file by
 	outputing it to the console */
-	printf("\n%s", buffer);
+	printf("File is read as:\n");
+	printf("%s", buffer);
 
-	FSM * stateMachine = malloc(sizeof(FSM));
+	FSM *stateMachine = FSM_constructor();
+
+	if (stateMachine == NULL) {
+		printf("State machine creation failed.\n");
+	}
+	Memory *mem = Memory_constructor();
+	Assembler *as = Assembler_constructor();
+
 
 
 	/* free the memory we used for the buffer */

@@ -8,11 +8,13 @@
 #ifndef FSM_H_
 #define FSM_H_
 
+
 #include "ALU.h"
 #include "Memory.h"
 #include "Registers.h"
 
 enum macro_state {
+	LOAD,
 	FETCH,
 	DECODE,
 	EXECUTE
@@ -34,13 +36,24 @@ enum micro_state {
 
 
 struct FSM_struct {
+	int PC;
 	maState maState;
-
+	ALU * alu;
+	Memory * memory;
+	Reg * registers;
 };
 
 typedef struct FSM_struct FSM;
 
-FSM * setState(FSM *, maState);
-maState getState(FSM *);
+FSM * FSM_constructor(void);
+
+FSM * FSM_setState(FSM *, maState);
+
+maState FSM_getState(FSM *);
+
+
+
+
+
 
 #endif /* FSM_H_ */
