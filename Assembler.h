@@ -38,6 +38,8 @@ struct Assembler {
 
 typedef struct Assembler Assembler;
 
+Assembler *Assembler_constructor(void);
+
 int AssemblerBinToDec(char *binNum);
 
 Assembler * AssemblerTranslate(char* input[100], int LineNumber);

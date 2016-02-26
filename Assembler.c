@@ -1,10 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "Assembler.h"
 
 //convert the instructions from assembly code to binary
 
+Assembler *Assembler_constructor() {
+	Assembler * as = malloc(sizeof(Assembler));
+
+	return as;
+}
 Memory *Assembler_Translate(Memory * memory, char *input) {
 
 	return memory;
