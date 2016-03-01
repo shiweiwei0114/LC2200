@@ -44,7 +44,7 @@ int AssemblerBinToDec(char *binNum);
 
 //Assembler * Assembler_translate(char* input[100], int LineNumber);
 
-Assembler *Assembler_translate(Assembler *, char *);
+Assembler *Assembler_translate(Assembler *,FILE *, char *);
 
 void AssemblerReset();
 

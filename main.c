@@ -44,7 +44,7 @@ int main(void) {
 	/* confirm we have read the file by
 	outputing it to the console */
 	printf("File is read as:\n");
-	printf("%s", buffer);
+	printf("%s\n", buffer);
 
 	FSM *stateMachine = FSM_constructor();
 
@@ -54,8 +54,8 @@ int main(void) {
 	Memory *mem = Memory_constructor();
 	Assembler *as = Assembler_constructor();
 
-	as->memory = mem;
-	as = Assembler_translate(as,buffer);
+	fseek(inputFile, 0L, SEEK_SET);
+	as = Assembler_translate(as, inputFile, buffer);
 
 
 
