@@ -11,7 +11,52 @@ Assembler *Assembler_constructor() {
 
 	return as;
 }
-Assembler *Assembler_translate(Assembler *as, char *input) {
+Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
+	printf("Translating to binary...\n");
+	unsigned int nbytes = 100;
+	char *line = (char *)malloc(nbytes+1);
+	int i = 1;
+	while (getline(&line, &nbytes, inputFile) > -1) {
+		if (line[0] != ';'&& line[0] != '\r') {
+			printf("%i: %s", i++, line);
+			char *tok = strtok(line, " ");
+			while (tok != NULL) {
+				if (strcmp(&tok[0],";")) {
+					printf("|%s", tok);
+					tok = strtok(NULL," ");
+				}
+			}
+		}
+	}
+
+
+
+//getline();
+//	char *p = input;
+//
+//	char *tok = strtok(input,"\n");
+//	int i = 1;
+//	while (tok != NULL) {
+//
+//			if (tok[0] != ';') {	//Ignore comment line beginning with ';'
+//						printf("%d: %s\n", i++, tok);
+//					}
+//					tok = strtok(NULL, "\n");
+//
+//
+//	}
+
+//	while(fgets(buff, 20, fp)) {
+//		tok = strtok(buff, " ");
+//		printf("%s\n", tok );
+//		printf("%s\n", opcode[i] );
+//		tok = strtok(NULL, ",");
+//		printf("%s\n", tok );
+//		tok = strtok(NULL, ",");
+//		printf("%s\n", tok );
+//		tok = strtok(NULL, ",");
+//		printf("%s\n", tok ); i++;
+//	}
 
 	return as;
 }

@@ -67,5 +67,5 @@ void Register_store(Reg *regs, char *bit, char *data) {
 }
 
 void RegisterReset(Reg *regs) {
-	RegisterInit(regs);
+	Register_initialize(regs);
 }
