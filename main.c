@@ -3,6 +3,7 @@
 #include <string.h>             /* strtok() */
 #include <assert.h>
 
+
 #include "Assembler.h"
 #include "ALU.h"
 #include "Memory.h"
@@ -17,12 +18,13 @@ int main(void) {
 	char    *buffer;
 	long    numbytes;
 	FILE *inputFile = NULL;
-	do {
-		printf("Enter the file name:\n");
-		scanf("%s", fileName);
-		inputFile = fopen(fileName, "r");
-	} while (inputFile == NULL);
-	
+//	do {
+//		printf("Enter the file name:\n");
+//		scanf("%s", fileName);
+//		inputFile = fopen(fileName, "r");
+//	} while (inputFile == NULL);
+	inputFile = fopen("test.txt", "r");
+
 	/* Get the number of bytes */
 	fseek(inputFile, 0L, SEEK_END);
 	numbytes = ftell(inputFile);
@@ -53,7 +55,6 @@ int main(void) {
 	}
 	Memory *mem = Memory_constructor();
 	Assembler *as = Assembler_constructor();
-
 	fseek(inputFile, 0L, SEEK_SET);
 	as = Assembler_translate(as, inputFile, buffer);
 

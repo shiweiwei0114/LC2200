@@ -71,7 +71,7 @@
           <tags>persp.viewSC:org.eclipse.mylyn.tasks.ui.views.tasks</tags>
           <tags>persp.newWizSC:org.eclipse.mylyn.tasks.ui.wizards.new.repository.task</tags>
           <children xsi:type="basic:PartSashContainer" xmi:id="_cIIL8dj7EeW7_oWr5usR8A" selectedElement="_cIIL8tj7EeW7_oWr5usR8A" horizontal="true">
-            <children xsi:type="basic:PartStack" xmi:id="_cIIL8tj7EeW7_oWr5usR8A" elementId="topLeft" containerData="2500" selectedElement="_cIIL89j7EeW7_oWr5usR8A">
+            <children xsi:type="basic:PartStack" xmi:id="_cIIL8tj7EeW7_oWr5usR8A" elementId="topLeft" containerData="2035" selectedElement="_cIIL89j7EeW7_oWr5usR8A">
               <tags>newtablook</tags>
               <tags>active</tags>
               <children xsi:type="advanced:Placeholder" xmi:id="_cIIL89j7EeW7_oWr5usR8A" elementId="org.eclipse.ui.navigator.ProjectExplorer" ref="_cH_CANj7EeW7_oWr5usR8A"/>
@@ -79,7 +79,7 @@
               <children xsi:type="advanced:Placeholder" xmi:id="_cIIL9dj7EeW7_oWr5usR8A" elementId="org.eclipse.ui.views.ResourceNavigator" toBeRendered="false" ref="_cIBeQNj7EeW7_oWr5usR8A"/>
               <children xsi:type="advanced:Placeholder" xmi:id="_cIIL9tj7EeW7_oWr5usR8A" elementId="org.eclipse.ui.views.BookmarkView" toBeRendered="false" ref="_cIBeQdj7EeW7_oWr5usR8A"/>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_cIIL99j7EeW7_oWr5usR8A" containerData="7500">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_cIIL99j7EeW7_oWr5usR8A" containerData="7965">
               <children xsi:type="basic:PartSashContainer" xmi:id="_cIIL-Nj7EeW7_oWr5usR8A" containerData="7500" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_cIIL-dj7EeW7_oWr5usR8A" elementId="org.eclipse.ui.editorss" containerData="7500" ref="_cH0p8Nj7EeW7_oWr5usR8A"/>
                 <children xsi:type="basic:PartStack" xmi:id="_cIIL-tj7EeW7_oWr5usR8A" elementId="topRight" containerData="2500" selectedElement="_cIIL-9j7EeW7_oWr5usR8A">
@@ -201,7 +201,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_b8wpcNj7EeW7_oWr5usR8A" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_eJ7ZoNnBEeWy2btRUWxl7Q" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_bu_6YNj7EeW7_oWr5usR8A"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_kCpAUOTAEeWKQblV-QPwdQ" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_bu_6YNj7EeW7_oWr5usR8A"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_b8wpcdj7EeW7_oWr5usR8A" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -225,7 +225,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_b8xQgNj7EeW7_oWr5usR8A" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_eJ7ZqtnBEeWy2btRUWxl7Q" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_bu-FMtj7EeW7_oWr5usR8A"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_kCyxVOTAEeWKQblV-QPwdQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_bu-FMtj7EeW7_oWr5usR8A"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_b8x3kNj7EeW7_oWr5usR8A" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
