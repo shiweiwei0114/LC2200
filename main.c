@@ -55,7 +55,6 @@ int main(void) {
 	}
 	Memory *mem = Memory_constructor();
 	Assembler *as = Assembler_constructor();
-
 	fseek(inputFile, 0L, SEEK_SET);
 	as = Assembler_translate(as, inputFile, buffer);
 

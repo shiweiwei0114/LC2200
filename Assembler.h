@@ -35,6 +35,7 @@ struct Assembler {
 	char machineLine[100][WORD_SIZE];
 	Memory memory;
 	int endIndex;
+	int numOfInstruction;
 };
 
 typedef struct Assembler Assembler;

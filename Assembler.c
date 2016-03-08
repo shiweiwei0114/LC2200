@@ -8,7 +8,7 @@
 
 Assembler *Assembler_constructor() {
 	Assembler * as = malloc(sizeof(Assembler));
-
+	as->numOfInstruction = 0;
 	return as;
 }
 
@@ -32,14 +32,6 @@ char* assemblyToOpcode(char *string){
 	} else if (strcasecmp(string, "jalr") == 0) {
 		return "1000";
 	}
-//	nand,
-//		addi,
-//		lw,
-//		sw,
-//		st,
-//		not,
-//		beq,
-//		jalr,
 	return NULL;
 }
 char *numberToBinary(char *tok){
@@ -80,80 +72,69 @@ char * assemblyToRegister(char *tok) {
 //			char $s2[32];	//1100
 	return NULL;
 }
+
+void printObjectCode(char *buffer) {
+	char *output = "main.o";
+	FILE *outputFile = fopen(output, "w");
+	fprintf(outputFile, "%s\n", buffer);
+
+}
+
 Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 	printf("Translating to binary...\n");
-	unsigned int nbytes = 100;
+	size_t nbytes = 100;
 	char *line = (char *)malloc(nbytes+1);
 	int i = 1;
+	char *buffer = (char *) malloc(nbytes * 100000);
 	while (getline(&line, &nbytes, inputFile) > -1) {
 		char * binaryLine = (char*)calloc(nbytes+1,sizeof(char));
 		if (line[0] != ';'&& line[0] != '\r') {
 			printf("%i: %s", i++, line);
 			char* tok = (char*) calloc(10, sizeof(char));
-			tok = strtok(line, " \t,");
+			tok = strtok(line, " \t,\n()");
 			while (tok != NULL) {
 				printf("Token: %s\n", tok);
 				if (strcasecmp(tok, ".orig") == 0) {
-					tok = strtok(NULL," \t,");
+					tok = strtok(NULL," \t,\n()");
 					if (tok != NULL) {
-						printf("Start of program at address: %s\n", tok);
+						int orig;
+						as->orig = sscanf(tok, "%d", &orig);
+						as->orig = orig;
+						printf("Start of program at address: %d\n", as->orig);
 						break;
 					}
-
 				} else {
-					if (tok[0] == ';') {
+					if (tok[0] == ';' || strcasecmp(tok, ".end\r") == 0) {
 						printf("Comment: %s\n", tok);
 						break;
 					} else {
 						if (tok[0] == '$') {
-							char *new = (char *) calloc(10,sizeof(char));
-							printf("%d %d\n", sizeof(tok),sizeof(char));
-							//memcpy(new, tok, sizeof(tok) / sizeof(char) - 1);
 							strcat(binaryLine, assemblyToRegister(tok));
+							//strcat(binaryLine, "|");
 						} else if (tok[0] >= 48 && tok[0] <= 57) {
 							strcat(binaryLine, numberToBinary(tok));
+							//strcat(binaryLine, "|");
 						} else if ((tok[0] >= 65 && tok[0] <= 90) || (tok[0] >= 97 && tok[0] <= 122)) {
 							strcat(binaryLine, assemblyToOpcode(tok));
+							//strcat(binaryLine, "|");
 						} else {
+							//printf("Token: %s\n", tok);
 							printf("Unidentifiable syntax.\n");
 						}
 					}
-					tok = strtok(NULL," \t,");
+					tok = strtok(NULL," \t,\n()");
 				}
 			}
 			if (binaryLine[0] != '\0') {
 				printf("Binary: %s\n", binaryLine);
+				strcat(buffer, binaryLine);
+				strcat(buffer, "\n");
+
 			}
 		}
 	}
-
-
-//getline();
-//	char *p = input;
-//
-//	char *tok = strtok(input,"\n");
-//	int i = 1;
-//	while (tok != NULL) {
-//
-//			if (tok[0] != ';') {	//Ignore comment line beginning with ';'
-//						printf("%d: %s\n", i++, tok);
-//					}
-//					tok = strtok(NULL, "\n");
-//
-//
-//	}
-
-//	while(fgets(buff, 20, fp)) {
-//		tok = strtok(buff, " ");
-//		printf("%s\n", tok );
-//		printf("%s\n", opcode[i] );
-//		tok = strtok(NULL, ",");
-//		printf("%s\n", tok );
-//		tok = strtok(NULL, ",");
-//		printf("%s\n", tok );
-//		tok = strtok(NULL, ",");
-//		printf("%s\n", tok ); i++;
-//	}
+	printf("%s\n", buffer);
+	printObjectCode(buffer);
 
 	return as;
 }
@@ -174,7 +155,7 @@ int AssemblerBinToDec(char *binNum) {
 		if (binNum[i] == '1') {
 			result += 1;
 		}
-		printf(result);
+		printf("%d\n", result);
 	}
 
 	//if it's a negative, use 2's complement, convert to positive number
