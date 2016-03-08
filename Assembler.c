@@ -11,24 +11,121 @@ Assembler *Assembler_constructor() {
 
 	return as;
 }
+
+char* assemblyToOpcode(char *string){
+	if (strcasecmp(string, "add") == 0) {
+		return "0000";
+	} else if (strcasecmp(string, "nand") == 0) {
+		return "0001";
+	}else if (strcasecmp(string, "addi") == 0) {
+		return "0010";
+	}else if (strcasecmp(string, "lw") == 0) {
+		return "0011";
+	}else if (strcasecmp(string, "sw") == 0) {
+		return "0100";
+	}else if (strcasecmp(string, "st") == 0) {
+		return "0101";
+	}else if (strcasecmp(string, "not") == 0) {
+		return "0110";
+	}else if (strcasecmp(string, "beq") == 0) {
+		return "0111";
+	} else if (strcasecmp(string, "jalr") == 0) {
+		return "1000";
+	}
+//	nand,
+//		addi,
+//		lw,
+//		sw,
+//		st,
+//		not,
+//		beq,
+//		jalr,
+	return NULL;
+}
+char *numberToBinary(char *tok){
+
+	return "0000";
+}
+char * assemblyToRegister(char *tok) {
+	if (strcasecmp(tok, "$zero") == 0) {
+		return "0000";
+	} else if (strcasecmp(tok, "$a0") == 0) {
+		return "0011";
+	}else if (strcasecmp(tok, "$a1") == 0) {
+		return "0100";
+	}else if (strcasecmp(tok, "$a2") == 0) {
+		return "0101";
+	}else if (strcasecmp(tok, "$t0") == 0) {
+		return "0110";
+	}else if (strcasecmp(tok, "$t1") == 0) {
+		return "0111";
+	}else if (strcasecmp(tok, "$t2") == 0) {
+		return "1000";
+	}else if (strcasecmp(tok, "$s0") == 0) {
+		return "1001";
+	}else if (strcasecmp(tok, "$s1") == 0) {
+		return "1010";
+	}else if (strcasecmp(tok, "$s2") == 0) {
+		return "1100";
+	}
+//		char $zero[32]; //0000
+//			char $a0[32];	//0011
+//			char $a1[32];	//0100
+//			char $a2[32];	//0101
+//			char $t0[32];	//0110
+//			char $t1[32];	//0111
+//			char $t2[32];	//1000
+//			char $s0[32];	//1001
+//			char $s1[32];	//1010
+//			char $s2[32];	//1100
+	return NULL;
+}
 Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 	printf("Translating to binary...\n");
 	unsigned int nbytes = 100;
 	char *line = (char *)malloc(nbytes+1);
 	int i = 1;
 	while (getline(&line, &nbytes, inputFile) > -1) {
+		char * binaryLine = (char*)calloc(nbytes+1,sizeof(char));
 		if (line[0] != ';'&& line[0] != '\r') {
 			printf("%i: %s", i++, line);
-			char *tok = strtok(line, " ");
+			char* tok = (char*) calloc(10, sizeof(char));
+			tok = strtok(line, " \t,");
 			while (tok != NULL) {
-				if (strcmp(&tok[0],";")) {
-					printf("|%s", tok);
-					tok = strtok(NULL," ");
+				printf("Token: %s\n", tok);
+				if (strcasecmp(tok, ".orig") == 0) {
+					tok = strtok(NULL," \t,");
+					if (tok != NULL) {
+						printf("Start of program at address: %s\n", tok);
+						break;
+					}
+
+				} else {
+					if (tok[0] == ';') {
+						printf("Comment: %s\n", tok);
+						break;
+					} else {
+						if (tok[0] == '$') {
+							char *new = (char *) calloc(10,sizeof(char));
+							printf("%d %d\n", sizeof(tok),sizeof(char));
+							//memcpy(new, tok, sizeof(tok) / sizeof(char) - 1);
+							strcat(binaryLine, assemblyToRegister(tok));
+						} else if (tok[0] >= 48 && tok[0] <= 57) {
+							strcat(binaryLine, numberToBinary(tok));
+						} else if ((tok[0] >= 65 && tok[0] <= 90) || (tok[0] >= 97 && tok[0] <= 122)) {
+							strcat(binaryLine, assemblyToOpcode(tok));
+						} else {
+							printf("Unidentifiable syntax.\n");
+						}
+					}
+					tok = strtok(NULL," \t,");
 				}
+			}
+			if (binaryLine[0] != '\0') {
+				printf("Binary: %s\n", binaryLine);
 			}
 		}
 	}
-
 
 
 //getline();

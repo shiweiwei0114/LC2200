@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "Memory.h"
+#include "Registers.h"
 
 
 #define WORD_SIZE 32
@@ -16,17 +17,17 @@ struct instruction_format {
 };
 
 //All supported instructions
-enum {
-	ADD,
-	NAND,
-	ADDI,
-	LW,
-	SW,
-	ST,
-	NOT,
-	BEQ,
-	JALR,
-};
+typedef enum {
+	add,
+	nand,
+	addi,
+	lw,
+	sw,
+	st,
+	not,
+	beq,
+	jalr,
+} ISA;
 
 struct Assembler {
 	int orig;
@@ -37,6 +38,10 @@ struct Assembler {
 };
 
 typedef struct Assembler Assembler;
+
+
+
+
 
 Assembler *Assembler_constructor(void);
 
