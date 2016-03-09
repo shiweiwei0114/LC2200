@@ -6,4 +6,4 @@ set /p pkg-info= <372project.txt
 del 372project.txt
  
 rem echo %pkg-info%
-gcc main.c -o main.exe -Wall %pkg-info%
+gcc main.c ALU.c Assembler.c FSM.c Memory.c Registers.c -o main.exe -Wall %pkg-info%
