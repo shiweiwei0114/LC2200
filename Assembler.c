@@ -119,7 +119,7 @@ Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 	char *line = (char *)malloc(nbytes+1);
 	int count = 0;
 	char *buffer = (char *) malloc(nbytes * 100000);
-	while (getline(&line, &nbytes, inputFile) > -1) {
+	while (fgets(line, nbytes+1, inputFile)) {
 		char * binaryLine = (char*)calloc(nbytes+1,sizeof(char));
 		if (line[0] != ';'&& line[0] != '\r') {
 			//printf("%i: %s", i++, line);
