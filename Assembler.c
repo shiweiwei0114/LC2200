@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
+//#include <ctype.h>
 #include <stdlib.h>
 #include "Assembler.h"
 
@@ -117,7 +117,7 @@ Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 	printf("Translating to binary...\n");
 	size_t nbytes = 100;
 	char *line = (char *)malloc(nbytes+1);
-	int i = 1, count = 0;
+	int count = 0;
 	char *buffer = (char *) malloc(nbytes * 100000);
 	while (getline(&line, &nbytes, inputFile) > -1) {
 		char * binaryLine = (char*)calloc(nbytes+1,sizeof(char));
