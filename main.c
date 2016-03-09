@@ -60,12 +60,12 @@ int main(void) {
 
 	as = Assembler_translate(as, inputFile, buffer);
 
-	FSM *stateMachine = FSM_constructor(mem);
+	FSM *stateMachine = FSM_constructor(mem, as->orig, as->numOfInstruction);
 	if (stateMachine == NULL) {
 		printf("State machine creation failed.\n");
 	}
 
-	FSM_start();
+	FSM_start(stateMachine);
 
 	/* free the memory we used for the buffer */
 	free(buffer);

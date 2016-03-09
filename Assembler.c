@@ -104,10 +104,11 @@ char * assemblyToRegister(char *tok) {
 }
 
 FILE * printObjectCode(char *buffer) {
-	char *output = "main.o";
+	char *output = "main.txt";
 	FILE *outputFile = fopen(output, "w");
 	fprintf(outputFile, "%s\n", buffer);
-	return outputFile;
+	fclose(outputFile);
+	return NULL;
 }
 int Assembler_getNumInstructions(Assembler *as) {
 	return as->numOfInstruction;
@@ -170,7 +171,7 @@ Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 	as->numOfInstruction = count;
 	printf("%s", buffer);
 	printf("Number of instructions read: %d\n", as->numOfInstruction);
-	as->outputFile = printObjectCode(buffer);
+	printObjectCode(buffer);
 
 	return as;
 }

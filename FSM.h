@@ -26,15 +26,17 @@ typedef enum macro_state maState;
 
 struct FSM_struct {
 	int PC;
+	int orig;
+	int numbOfInstructions;
 	maState maState;
 	ALU * alu;
-	Memory * memory;
+	char memory[CAPACITY][WORD_SIZE];
 	Reg * registers;
 };
 
 typedef struct FSM_struct FSM;
 
-FSM * FSM_constructor(Memory *);
+FSM * FSM_constructor(Memory *, int, int);
 
 FSM * FSM_setState(FSM *, maState);
 
@@ -44,6 +46,6 @@ FSM *FSM_nextState(FSM *);
 
 void FSM_executeInstructions(FILE *objectFile);
 
-void FSM_start();
+void FSM_start(FSM *fsm);
 
 #endif /* FSM_H_ */

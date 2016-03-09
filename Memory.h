@@ -12,12 +12,13 @@
 #define WORD_SIZE 32
 
 struct memory {
-	int memory[CAPACITY][WORD_SIZE];
-
+	char memory[CAPACITY][WORD_SIZE];
 };
 
 typedef struct memory Memory;
 
 Memory * Memory_constructor();
+
+void Memory_store(Memory *, int, char *);
 
 #endif /* MEMORY_H_ */
