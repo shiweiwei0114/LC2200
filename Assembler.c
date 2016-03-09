@@ -144,13 +144,13 @@ Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 					} else {
 						if (tok[0] == '$') {
 							strcat(binaryLine, assemblyToRegister(tok));
-							//strcat(binaryLine, "|");
+							strcat(binaryLine, "|");
 						} else if (tok[0] >= 48 && tok[0] <= 57) {		//token is a number
 							strcat(binaryLine, numberToBinary(tok));
-							//strcat(binaryLine, "|");
+							strcat(binaryLine, "|");
 						} else if ((tok[0] >= 65 && tok[0] <= 90) || (tok[0] >= 97 && tok[0] <= 122)) {		//token is a word
 							strcat(binaryLine, assemblyToOpcode(tok));
-							//strcat(binaryLine, "|");
+							strcat(binaryLine, "|");
 						} else {
 							//printf("Token: %s\n", tok);
 							printf("Unidentifiable syntax.\n");
@@ -160,10 +160,14 @@ Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 				}
 			}
 			if (binaryLine[0] != '\0') {
+				strcat(binaryLine, "\n");
 				//printf("Binary: %s\n", binaryLine);
 				count++;
+				//strcat(binaryLine,'\0');
 				strcat(buffer, binaryLine);
-				strcat(buffer, "\n");
+				//strcat(buffer,"\n");
+				//strcat(buffer, "\0");
+
 
 			}
 		}

@@ -4,6 +4,7 @@
 struct ALU {
 	char *A;
 	char *B;
+	char *dest;
 };
 
 typedef struct ALU ALU;

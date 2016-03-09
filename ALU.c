@@ -6,8 +6,9 @@
 
 ALU *ALU_constructor() {
 	ALU *alu = malloc(sizeof(ALU));
-	alu->A = calloc(32, sizeof(char));
-	alu->B = calloc(32, sizeof(char));
+	alu->A = calloc(32 + 1, sizeof(char));
+	alu->B = calloc(32 + 1, sizeof(char));
+	alu->dest = calloc(32 + 1, sizeof(char));
 	return alu;
 }
 char * Nand(char *a, char *b) {

@@ -15,7 +15,7 @@ typedef struct Registers {
 	char $s2[32];	//1100
 }Reg;
 
-void Register_initialize(Reg *regs);
+Reg *Register_initialize();
 char* Register_getValue(Reg *regs, char* bit);
 void Register_store(Reg *regs, char *bit, char *data);
 void Register_reset(Reg *regs);

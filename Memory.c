@@ -16,6 +16,4 @@ Memory * Memory_constructor() {
 
 void Memory_store(Memory * mem, int address, char *data) {
 	sscanf(data, "%s", mem->memory[address]);
-
-
 }

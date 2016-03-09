@@ -51,6 +51,10 @@ int main(void) {
 	if (mem == NULL) {
 		printf("Memory creation failed.\n");
 	}
+	Reg *regFile = Register_constructor();
+	if (regFile == NULL) {
+			printf("Register file creation failed.\n");
+	}
 	Assembler *as = Assembler_constructor();
 	if (as == NULL) {
 		printf("Assembler creation failed.\n");

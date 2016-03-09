@@ -27,11 +27,14 @@ typedef enum macro_state maState;
 struct FSM_struct {
 	int PC;
 	int orig;
+	int size;
 	int numbOfInstructions;
 	maState maState;
 	ALU * alu;
-	char memory[CAPACITY][WORD_SIZE];
+	char memory[CAPACITY][WORD_SIZE  + 10];
+	char *IR;
 	Reg * registers;
+
 };
 
 typedef struct FSM_struct FSM;

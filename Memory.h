@@ -8,7 +8,7 @@
 #ifndef MEMORY_H_
 #define MEMORY_H_
 
-#define CAPACITY 10000
+#define CAPACITY 3000
 #define WORD_SIZE 32
 
 struct memory {
