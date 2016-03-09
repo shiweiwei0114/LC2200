@@ -35,8 +35,38 @@ char* assemblyToOpcode(char *string){
 	return NULL;
 }
 char *numberToBinary(char *tok){
+	//printf("Number: ");
+	int number;
+	char *result = (char *) calloc(WORD_SIZE, sizeof(char));
+	sscanf(tok, "%d", &number);
+	//printf("%d\n", number);
 
-	return "0000";
+	int powerOf2 = 1;
+	while (powerOf2 * 2 < number) {
+		powerOf2 = powerOf2 * 2;
+	}
+	while (powerOf2 != 0) {
+		if (number - powerOf2 >= 0) {
+			strcat(result, "1");
+			number -= powerOf2;
+		}
+		else if (number - powerOf2 < 0) {
+			strcat(result, "0");
+		}
+		powerOf2 /= 2;
+	}
+	int needBits = 20 - strlen(result);
+	char *bits = (char *) calloc(20, sizeof(char));
+	int j = 0;
+	char *p = bits;
+	while (p != NULL && j < needBits) {
+		*p = '0';
+		p++; j++;
+	}
+	//printf("Bits: %s\n", bits);
+	strcat(bits, result);
+	//printf("Binary: %s\n", bits);
+	return bits;
 }
 char * assemblyToRegister(char *tok) {
 	if (strcasecmp(tok, "$zero") == 0) {
@@ -73,27 +103,30 @@ char * assemblyToRegister(char *tok) {
 	return NULL;
 }
 
-void printObjectCode(char *buffer) {
+FILE * printObjectCode(char *buffer) {
 	char *output = "main.o";
 	FILE *outputFile = fopen(output, "w");
 	fprintf(outputFile, "%s\n", buffer);
-
+	return outputFile;
+}
+int Assembler_getNumInstructions(Assembler *as) {
+	return as->numOfInstruction;
 }
 
 Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 	printf("Translating to binary...\n");
 	size_t nbytes = 100;
 	char *line = (char *)malloc(nbytes+1);
-	int i = 1;
+	int i = 1, count = 0;
 	char *buffer = (char *) malloc(nbytes * 100000);
 	while (getline(&line, &nbytes, inputFile) > -1) {
 		char * binaryLine = (char*)calloc(nbytes+1,sizeof(char));
 		if (line[0] != ';'&& line[0] != '\r') {
-			printf("%i: %s", i++, line);
+			//printf("%i: %s", i++, line);
 			char* tok = (char*) calloc(10, sizeof(char));
-			tok = strtok(line, " \t,\n()");
+			tok = strtok(line, " \t,\n()");					//space, tab, comma, newline, and parentheses are delimiter
 			while (tok != NULL) {
-				printf("Token: %s\n", tok);
+				//printf("Token: %s\n", tok);
 				if (strcasecmp(tok, ".orig") == 0) {
 					tok = strtok(NULL," \t,\n()");
 					if (tok != NULL) {
@@ -105,16 +138,16 @@ Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 					}
 				} else {
 					if (tok[0] == ';' || strcasecmp(tok, ".end\r") == 0) {
-						printf("Comment: %s\n", tok);
+						//printf("Comment: %s\n", tok);
 						break;
 					} else {
 						if (tok[0] == '$') {
 							strcat(binaryLine, assemblyToRegister(tok));
 							//strcat(binaryLine, "|");
-						} else if (tok[0] >= 48 && tok[0] <= 57) {
+						} else if (tok[0] >= 48 && tok[0] <= 57) {		//token is a number
 							strcat(binaryLine, numberToBinary(tok));
 							//strcat(binaryLine, "|");
-						} else if ((tok[0] >= 65 && tok[0] <= 90) || (tok[0] >= 97 && tok[0] <= 122)) {
+						} else if ((tok[0] >= 65 && tok[0] <= 90) || (tok[0] >= 97 && tok[0] <= 122)) {		//token is a word
 							strcat(binaryLine, assemblyToOpcode(tok));
 							//strcat(binaryLine, "|");
 						} else {
@@ -126,15 +159,18 @@ Assembler *Assembler_translate(Assembler *as, FILE * inputFile, char *input) {
 				}
 			}
 			if (binaryLine[0] != '\0') {
-				printf("Binary: %s\n", binaryLine);
+				//printf("Binary: %s\n", binaryLine);
+				count++;
 				strcat(buffer, binaryLine);
 				strcat(buffer, "\n");
 
 			}
 		}
 	}
-	printf("%s\n", buffer);
-	printObjectCode(buffer);
+	as->numOfInstruction = count;
+	printf("%s", buffer);
+	printf("Number of instructions read: %d\n", as->numOfInstruction);
+	as->outputFile = printObjectCode(buffer);
 
 	return as;
 }

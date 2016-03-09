@@ -36,22 +36,19 @@ struct Assembler {
 	Memory memory;
 	int endIndex;
 	int numOfInstruction;
+	FILE *outputFile;
 };
 
 typedef struct Assembler Assembler;
-
-
-
-
 
 Assembler *Assembler_constructor(void);
 
 int AssemblerBinToDec(char *binNum);
 
-//Assembler * Assembler_translate(char* input[100], int LineNumber);
-
 Assembler *Assembler_translate(Assembler *,FILE *, char *);
 
 void AssemblerReset();
+
+int Assembler_getNumInstructions();
 
 #endif
