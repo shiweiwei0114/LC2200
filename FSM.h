@@ -10,9 +10,10 @@
 
 #include <stdio.h>
 
-#include "ALU.h"
 #include "Memory.h"
 #include "Registers.h"
+#include "ALU.h"
+
 
 enum macro_state {
 	LOAD,
@@ -30,7 +31,7 @@ struct FSM_struct {
 	int size;
 	int numbOfInstructions;
 	maState maState;
-	ALU * alu;
+	ALU *alu;
 	char memory[CAPACITY][WORD_SIZE  + 10];
 	char *IR;
 	Reg * registers;
@@ -39,7 +40,7 @@ struct FSM_struct {
 
 typedef struct FSM_struct FSM;
 
-FSM * FSM_constructor(Memory *, int, int);
+FSM * FSM_constructor(Memory *, Reg *, int, int);
 
 FSM * FSM_setState(FSM *, maState);
 

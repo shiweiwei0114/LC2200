@@ -51,7 +51,7 @@ int main(void) {
 	if (mem == NULL) {
 		printf("Memory creation failed.\n");
 	}
-	Reg *regFile = Register_constructor();
+	Reg *regFile = Register_initialize();
 	if (regFile == NULL) {
 			printf("Register file creation failed.\n");
 	}
@@ -64,7 +64,7 @@ int main(void) {
 
 	as = Assembler_translate(as, inputFile, buffer);
 
-	FSM *stateMachine = FSM_constructor(mem, as->orig, as->numOfInstruction);
+	FSM *stateMachine = FSM_constructor(mem, regFile, as->orig, as->numOfInstruction);
 	if (stateMachine == NULL) {
 		printf("State machine creation failed.\n");
 	}

@@ -51,4 +51,6 @@ void AssemblerReset();
 
 int Assembler_getNumInstructions();
 
+char *numberToBinary(char *);
+
 #endif

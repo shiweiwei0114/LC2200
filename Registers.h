@@ -19,5 +19,6 @@ Reg *Register_initialize();
 char* Register_getValue(Reg *regs, char* bit);
 void Register_store(Reg *regs, char *bit, char *data);
 void Register_reset(Reg *regs);
+void printRegisters(Reg *);
 
 #endif

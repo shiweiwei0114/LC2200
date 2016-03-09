@@ -8,15 +8,16 @@
 #include <string.h>
 #include "FSM.h"
 
-FSM * FSM_constructor(Memory *memory, int orig, int numb) {
+FSM * FSM_constructor(Memory *memory, Reg *regs, int orig, int numb) {
 	FSM *fsm = (FSM *) malloc(sizeof(FSM));
 	fsm->PC = orig;
 	fsm->orig = orig;
 	fsm->size = 0;
 	fsm->numbOfInstructions = numb;
-	fsm->alu = ALU_constructor();
+	fsm->alu = ALU_constructor(regs);
 	fsm->maState = LOAD;
 	fsm->IR = (char *) malloc(sizeof(WORD_SIZE + 1));
+	fsm->registers = Register_initialize();
 	int i;
 	for (i = 0; i < CAPACITY; i++) {
 		int j;
@@ -72,8 +73,10 @@ void decodeR(FSM *fsm, char *opcode, char *instruction) {
 	fsm->alu->B = regZ;
 	fsm->alu->dest = regX;
 	if (strcmp(opcode, "0000") == 0){	//add x, y, z
+		fsm->alu->inType = ADD,
 		printf("Decoded instruction: ADD\n");
 	} else if (strcmp(opcode, "0001") == 0) {	//nand x, y, z
+		fsm->alu->inType = NAND,
 		printf("Decoded instruction: NAND\n");
 	}
 }
@@ -89,7 +92,7 @@ void findInstruction(FSM *fsm, char *opcode, char *instruction){
 		decodeR(fsm, opcode, instruction);
 	} else if (strcasecmp(opcode, "0001") == 0) { //nand
 		decodeR(fsm, opcode, instruction);
-	}else if (strcasecmp(opcode, "0010") == 0) { //andi
+	}else if (strcasecmp(opcode, "0010") == 0) { //addi
 		decodeI(fsm, opcode, instruction);
 	}else if (strcasecmp(opcode, "l0011") == 0) { //lw
 		decodeI(fsm, opcode, instruction);
@@ -112,10 +115,10 @@ char *FSM_decode(FSM *fsm) {
 	findInstruction(fsm, opcode, instruction);
 	return NULL;
 }
-void executeInstruction() {
-
-
-
+int executeInstruction(FSM * fsm) {
+	ALU_execute(fsm->alu, fsm->registers);
+	printRegisters(fsm->registers);
+	return 0;
 }
 int FSM_handle(FSM *fsm) {
 	switch (FSM_getState(fsm)) {
@@ -128,9 +131,6 @@ int FSM_handle(FSM *fsm) {
 			while (getline(&line, &nBytes, inputFile) > 0) {
 				if (line[0] != '\n') {
 					printf("Line: %s\n", line);
-					//char *temp = (char *) malloc(sizeof(100 + 1));
-					//sscanf(line, "%s", temp);
-					//scanf();
 					strcpy(fsm->memory[fsm->orig], line);
 					fsm->size++;
 					printf("Line in memory: %s\n", fsm->memory[fsm->orig]);
@@ -174,9 +174,15 @@ int FSM_handle(FSM *fsm) {
 	}
 	case EXECUTE: {
 		printf("Executing...\n");
-		executeInstruction(fsm);
-		FSM_nextState(fsm);
-		return 1;
+		printRegisters(fsm->registers);
+		if (executeInstruction(fsm) == 0) {
+			FSM_nextState(fsm);
+			return 1;
+		} else {
+			printf("Error!\n");
+			return 0;
+		}
+
 		break;
 	}
 	}

@@ -4,12 +4,45 @@
 
 #include "ALU.h"
 
-ALU *ALU_constructor() {
+ALU *ALU_constructor(Reg *regs) {
 	ALU *alu = malloc(sizeof(ALU));
+	alu->regs = regs;
 	alu->A = calloc(32 + 1, sizeof(char));
 	alu->B = calloc(32 + 1, sizeof(char));
 	alu->dest = calloc(32 + 1, sizeof(char));
+	alu->result = calloc(32 + 1, sizeof(char));
+
 	return alu;
+}
+//Convert the binary to decimal
+int binToDec(char *binNum) {
+	int len = strlen(binNum);
+	unsigned int result = 0;
+	unsigned int signExtend;
+	unsigned int negResult = 0;
+
+	//convert the char as bits in an unsigned int
+	int i;
+	for (i = 0; i < len; i++) {
+		result = result << 1; //shift 1
+		if (binNum[i] == '1') {
+			result += 1;
+		}
+		printf("%d\n", result);
+	}
+
+	//if it's a negative, use 2's complement, convert to positive number
+	if (binNum[0] == '1') {
+		signExtend = (1 << (len - 1));
+		signExtend -= 1;
+		signExtend = ~signExtend;
+		result |= signExtend;
+
+		negResult = (~result);
+		negResult += 1;
+	}
+
+	return result;
 }
 char * Nand(char *a, char *b) {
 	int i;
@@ -41,6 +74,16 @@ char * Nand(char *a, char *b) {
 //	return finalResult;
 //}
 
+char *decToBinary(int number) {
+
+	return NULL;
+}
+char * ALU_add(ALU *alu) {
+	int a = binToDec(alu->A);
+	int b = binToDec(alu->B);
+	int c = a + b;
+	return decToBinary(c);
+}
 int Addi(char *b, int immVal, char *regX) {
 	long int result1;
 	long int result2;
@@ -51,4 +94,22 @@ int Addi(char *b, int immVal, char *regX) {
 
 	printf("\t\t%s = %ld", regX, sum);
 	return sum;
+}
+
+int ALU_execute(ALU *alu, Reg *regs) {
+	switch(alu->inType) {
+	case ADD:	{
+		Register_store(alu->regs, alu->dest, alu->result);
+		break;
+	}
+	case NAND:	{
+		break;
+	}
+	default: {
+		break;
+	}
+	}
+
+
+	return 0;
 }
