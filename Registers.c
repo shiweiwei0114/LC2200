@@ -5,17 +5,17 @@
 
 Reg * Register_initialize() {
 	Reg *regs = (Reg *) malloc(sizeof(Reg));
-	char *zeros = "00000000000000000000000000000000";
-	memcpy(regs->$zero, zeros, 32);
-	memcpy(regs->$a0, zeros, 32);
-	memcpy(regs->$a1, zeros, 32);
-	memcpy(regs->$a2, zeros, 32);
-	memcpy(regs->$t0, zeros, 32);
-	memcpy(regs->$t1, zeros, 32);
-	memcpy(regs->$t2, zeros, 32);
-	memcpy(regs->$s0, zeros, 32);
-	memcpy(regs->$s1, zeros, 32);
-	memcpy(regs->$s2, zeros, 32);
+//	char *zeros = "00000000000000000000000000000000";
+//	memcpy(regs->$zero, zeros, 32);
+//	memcpy(regs->$a0, zeros, 32);
+//	memcpy(regs->$a1, zeros, 32);
+//	memcpy(regs->$a2, zeros, 32);
+//	memcpy(regs->$t0, zeros, 32);
+//	memcpy(regs->$t1, zeros, 32);
+//	memcpy(regs->$t2, zeros, 32);
+//	memcpy(regs->$s0, zeros, 32);
+//	memcpy(regs->$s1, zeros, 32);
+//	memcpy(regs->$s2, zeros, 32);
 	return regs;
 }
 char* Register_getValue(Reg *regs, char* bit) {

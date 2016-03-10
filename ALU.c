@@ -28,7 +28,7 @@ int binToDec(char *binNum) {
 		if (binNum[i] == '1') {
 			result += 1;
 		}
-		printf("%d\n", result);
+		//printf("%d\n", result);
 	}
 
 	//if it's a negative, use 2's complement, convert to positive number
@@ -74,14 +74,39 @@ char * Nand(char *a, char *b) {
 //	return finalResult;
 //}
 
-char *decToBinary(int number) {
+/*
+ * Code from website: http://www.programmingsimplified.com/c/source-code/c-program-convert-decimal-to-binary
+ */
+char *decToBinary(int n) {
 
-	return NULL;
+	int c, d, count;
+	char *pointer;
+
+	count = 0;
+	pointer = (char*) malloc(32 + 1);
+
+	if (pointer == NULL)
+		exit(EXIT_FAILURE);
+
+	for (c = 31; c >= 0; c--) {
+		d = n >> c;
+
+		if (d & 1)
+			*(pointer + count) = 1 + '0';
+		else
+			*(pointer + count) = 0 + '0';
+
+		count++;
+	}
+	*(pointer + count) = '\0';
+
+	return pointer;
 }
 char * ALU_add(ALU *alu) {
 	int a = binToDec(alu->A);
 	int b = binToDec(alu->B);
 	int c = a + b;
+	//printf("A: %d, B: %d, Result: %d\n", a, b, c);
 	return decToBinary(c);
 }
 int Addi(char *b, int immVal, char *regX) {
@@ -97,19 +122,20 @@ int Addi(char *b, int immVal, char *regX) {
 }
 
 int ALU_execute(ALU *alu, Reg *regs) {
-	switch(alu->inType) {
-	case ADD:	{
+	switch (alu->inType) {
+	case ADD: {
+		alu->result = ALU_add(alu);
 		Register_store(alu->regs, alu->dest, alu->result);
+
 		break;
 	}
-	case NAND:	{
+	case NAND: {
 		break;
 	}
 	default: {
 		break;
 	}
 	}
-
 
 	return 0;
 }
